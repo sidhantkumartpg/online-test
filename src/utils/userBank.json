@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "empCode": "EMP123",
+            "firstName": "john",
+            "lastName": "doe",
+            "password": "EMP!@#"
+        },
+        {
+            "empCode": "EMP321",
+            "firstName": "brad",
+            "lastName": "traversy",
+            "password": "EMP#@!"
+        },
+        {
+            "empCode": "EMP101",
+            "firstName": "mosh",
+            "lastName": "hamedani",
+            "password": "EMP!)!"
+        }
+    ]
+}
