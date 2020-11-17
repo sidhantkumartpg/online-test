@@ -1,31 +1,36 @@
-import React, { Component } from 'react';
-import Timer from 'react-timer-wrapper';
-import Timecode from 'react-timecode';
-
+import React, { Component } from "react";
+import Timer from "react-timer-wrapper";
+import Timecode from "react-timecode";
 
 class CustomTimer extends Component {
-    state = { };
+  state = {};
 
-    onTimerUpdate = ({time, duration}) => {
-        this.setState({
-            time,
-            duration,
-        });
-    }
+  onTimerUpdate = ({ time, duration }) => {
+    this.setState({
+      time,
+      duration,
+    });
+  };
 
-    render() {
-        const {
-            time,
-            duration,
-        } = this.state;
+  onFinish = () => {
+    this.props.onTimeFinish();
+  };
 
-        return (
-            <div>
-                <Timer active duration={10 * 60 * 1000} onTimeUpdate={this.onTimerUpdate} />
-                <Timecode time={duration - time} />
-            </div>
-        );
-    }
+  render() {
+    const { time, duration } = this.state;
+
+    return (
+      <div>
+        <Timer
+          active
+          duration={10 * 60 * 1000}
+          onTimeUpdate={this.onTimerUpdate}
+          onFinish={this.onFinish}
+        />
+        <Timecode time={duration - time} />
+      </div>
+    );
+  }
 }
- 
+
 export default CustomTimer;

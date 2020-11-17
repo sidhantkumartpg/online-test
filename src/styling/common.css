@@ -1,153 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,700&display=swap");
 
 body {
-    font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .content {
-    width: 60%;
-    margin: auto;
-    min-width: 500px;
+  width: 60%;
+  margin: auto;
+  min-width: 500px;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .centered {
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section {
-    padding-top: 5rem;
+  padding-top: 5rem;
 }
 
-.login-submit-btn, .register-submit-btn {
-    width: 100%;
-    padding: 0.4rem;
-    border-radius: 0.5rem;
-    border: solid #ea4f4f;
-    background-color: #ea4f4f;
-    font-weight: 600;
-    font-size: 1rem;
-    color: beige;
-    cursor: pointer;
+.login-submit-btn,
+.register-submit-btn {
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  border: solid #0cab11;
+  background-color: #0cab11;
+  font-weight: 600;
+  font-size: 1rem;
+  color: beige;
+  cursor: pointer;
 }
 
 #skill-inputs-wrapper label {
-    display: block;
-    margin-bottom: 0.3rem;
+  display: block;
+  margin-bottom: 0.3rem;
 }
 
-.login-input, .register-input {
-    display: block;
-    padding: 0.5rem;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    color: #222;
-    font-size: 1rem;
-    background: #fbfbfb61;
-    margin-top: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
+.login-input,
+.register-input {
+  display: block;
+  padding: 0.5rem;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  color: #222;
+  font-size: 1rem;
+  background: #fbfbfb61;
+  margin-top: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.login-label, .register-label {
-    display: block;
-    font-size: 1rem;
+.login-label,
+.register-label {
+  display: block;
+  font-size: 1rem;
 }
 
-.form-group, #form-group {
-    margin-bottom: 1.5rem;
+.form-group,
+#form-group {
+  margin-bottom: 1.5rem;
 }
 
-.login-form, .register-form {
-    width: 90%;
-    margin: auto;
-    max-width: 370px;
-    padding: 3rem;
-    box-shadow: 0px 0px 8px #888888;
-    border-radius: 0.75rem;
+.login-form,
+.register-form {
+  width: 90%;
+  margin: auto;
+  max-width: 370px;
+  padding: 3rem;
+  box-shadow: 0px 0px 8px #888888;
+  border-radius: 0.75rem;
 }
 
-.login-form h2, .register-form h2 {
-    text-align: center;
-    margin-top: 0;
+.login-form h2,
+.register-form h2 {
+  text-align: center;
+  margin-top: 0;
 }
 
 #take-test-btn {
-    background-color: #ea4f4f;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    border: solid #ea4f4f;
-    color: beige;
-    margin-top: 1rem;
-    font-size: 1rem;
+  background-color: #0cab11;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: solid #0cab11;
+  color: beige;
+  margin-top: 1rem;
+  font-size: 1rem;
 }
 
 #question-wrapper {
-    width: 90%;
-    margin: auto;
-    max-width: 370px;
-    padding: 3rem;
-    box-shadow: 0px 0px 8px #888888;
-    border-radius: 0.75rem;
-    margin-top: 5rem;
+  width: 90%;
+  margin: auto;
+  max-width: 370px;
+  padding: 3rem;
+  box-shadow: 0px 0px 8px #888888;
+  border-radius: 0.75rem;
+  margin-top: 5rem;
 }
 
 #question {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 #question-wrapper ul {
-    list-style: none;
-    padding-inline-start: 0px;
+  list-style: none;
+  padding-inline-start: 0px;
 }
 
 #question-wrapper ul li {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Header styling */
 
 header {
-    width: 100%;
-    position: fixed;
-    height: 60px;
-    box-shadow: 0px 5px 10px 0px #aaa;
+  width: 100%;
+  position: fixed;
+  height: 60px;
+  box-shadow: 0px 5px 10px 0px #aaa;
 }
 
 header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header ul {
-    list-style: none;
-    display: flex;
-    order: 2;
+  list-style: none;
+  display: flex;
+  order: 2;
 }
 
 header ul li {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 header a {
-    text-decoration: none;
-    font-size: 1.2rem;
-    color: rgb(70, 69, 69);
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: rgb(70, 69, 69);
 }
 
 header a:hover {
-    color: rgb(7, 7, 7);
+  color: rgb(7, 7, 7);
 }
 
 .container {
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.under-form-navigate {
+  margin-top: 2rem;
+}
+
+.under-form-navigate .navigate-link {
+  margin-left: 0.3rem;
 }

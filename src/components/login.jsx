@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = (props) => {
   const [loginDetails, setLoginDetails] = useState({
@@ -18,7 +18,9 @@ const Login = (props) => {
     console.log(
       `Employee code: ${loginDetails["empCode"]}, Password: ${loginDetails["password"]}`
     );
-    localStorage.setItem("ONLINE_EXAM_SESSION", { empCode: loginDetails['empCode'] });
+    localStorage.setItem("ONLINE_EXAM_SESSION", {
+      empCode: loginDetails["empCode"],
+    });
     localStorage.setItem("empCode", loginDetails.empCode);
     localStorage.setItem("password", loginDetails.password);
     history.replace("/exam-info");
@@ -29,7 +31,9 @@ const Login = (props) => {
       <form className="login-form">
         <h2>Login</h2>
         <div className="form-group">
-          <label htmlFor="input-emp-code" className="login-label">Employee code</label>
+          <label htmlFor="input-emp-code" className="login-label">
+            Employee code
+          </label>
           <input
             className="login-input"
             value={loginDetails.empCode}
@@ -40,7 +44,9 @@ const Login = (props) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="input-password" className="login-label">Password</label>
+          <label htmlFor="input-password" className="login-label">
+            Password
+          </label>
           <input
             className="login-input"
             value={loginDetails.password}
@@ -50,7 +56,19 @@ const Login = (props) => {
             onChange={handleChange}
           />
         </div>
-        <button type="button" className="login-submit-btn" onClick={handleSubmit}>Submit </button>
+        <button
+          type="button"
+          className="login-submit-btn"
+          onClick={handleSubmit}
+        >
+          Submit{" "}
+        </button>
+        <div className="text-center under-form-navigate">
+          Not registered ?
+          <Link className="navigate-link" to="/register">
+            Register
+          </Link>
+        </div>
       </form>
     </div>
   );
