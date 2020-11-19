@@ -14,7 +14,24 @@ export function calculateTestReport(testAttempts) {
   console.log();
 }
 
-export function getSkillLevelName(skillLevel) {}
+function isQuestionAnswered(ques) {
+  let ansCount = 0;
+
+  ques.choices.forEach((choice) => {
+    if (choice.selected) ansCount++;
+  });
+
+  return ansCount;
+}
+
+export function getAttemptCount(quesList) {
+  let quesAttempt = 0;
+  quesList.forEach((q) => {
+    if (isQuestionAnswered(q)) quesAttempt++;
+  });
+
+  return quesAttempt;
+}
 
 export function getAnsweredChoices(answeredQues) {
   let realAns = [];

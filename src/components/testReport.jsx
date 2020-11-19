@@ -58,17 +58,22 @@ const TestReport = () => {
   }, []);
 
   return (
-    <div className="test-report-container">
-      <h2>Test report</h2>
-      <a
-        href={hrefFile}
-        download={"TestReport.json"}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Download
-      </a>
-      <button onClick={takeTestAgain}>Take test again</button>
+    <div className="test-report-bg">
+      <div className="test-report-container">
+        <h2>Test report</h2>
+        <a
+          href={hrefFile}
+          download={"TestReport.json"}
+          target="_blank"
+          rel="noopener noreferrer"
+          id="download-link"
+        >
+          Download
+        </a>
+        <button onClick={takeTestAgain} className="test-again">
+          Take test again
+        </button>
+      </div>
     </div>
   );
 };

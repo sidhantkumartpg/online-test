@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { confirmAlert } from "react-confirm-alert";
 import { Link } from "react-router-dom";
-import { getAllQuestions } from "../utils/questionsUtil.js";
+import { getAllQuestions, getAttemptCount } from "../utils/questionsUtil.js";
 import { hasGivenTest, saveTestState } from "../utils/sessionManag.js";
 import Question from "./question.jsx";
 import CustomTimer from "./timer.jsx";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const TakeTest = ({ location, history }) => {
   const [quesList, setQuesList] = useState([]);
@@ -36,15 +38,46 @@ const TakeTest = ({ location, history }) => {
   }
 
   function submitTest() {
-    // prompt for confirmation
-    // save responses to json
     setIsSubmitted(true);
     saveTestState(quesList, location.state.skillLevel, true);
+  }
+
+  function handleSubmit() {
+    // prompt for confirmation
+    // save responses to json
+
+    const attemptCount = getAttemptCount(quesList);
+
+    if (attemptCount < quesCount)
+      confirmAlert({
+        title: "Submit test",
+        message: `You have not attempted ${
+          quesCount - attemptCount
+        } questions. Still want to submit ?`,
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () => submitTest(),
+          },
+          {
+            label: "No",
+            onClick: () => {},
+          },
+        ],
+      });
+    else {
+      submitTest();
+    }
   }
 
   function onTimeFinish() {
     setTimesUp(true);
     submitTest();
+  }
+
+  function othersAnswered(choices, currentChoice) {
+    return choices.filter((ch, index) => index !== currentChoice && ch.selected)
+      .length;
   }
 
   const onCheckAnswer = (quesIndex, choiceIndex, e) => {
@@ -66,6 +99,10 @@ const TakeTest = ({ location, history }) => {
                 return { ...q, selected: false };
               }),
           ],
+          state: {
+            ...quesList[quesIndex].state,
+            answered: true,
+          },
         },
         ...quesList.slice(quesIndex + 1),
       ]);
@@ -82,6 +119,12 @@ const TakeTest = ({ location, history }) => {
             },
             ...quesList[quesIndex]["choices"].slice(choiceIndex + 1),
           ],
+          state: {
+            ...quesList[quesIndex].state,
+            answered:
+              othersAnswered(quesList[quesIndex].choices, choiceIndex) ||
+              selected,
+          },
         },
         ...quesList.slice(quesIndex + 1),
       ]);
@@ -90,16 +133,9 @@ const TakeTest = ({ location, history }) => {
 
   function moveToPrev() {
     const quesListConst = quesList;
-    let isAnswered = false;
-    if (
-      quesList[currentQues].choices.filter((choice) => choice.selected)
-        .length !== 0
-    ) {
-      isAnswered = true;
-    }
+
     quesListConst[currentQues].state = {
       ...quesListConst[currentQues].state,
-      answered: isAnswered,
       seen: true,
     };
     setQuesList(quesListConst);
@@ -110,22 +146,35 @@ const TakeTest = ({ location, history }) => {
 
   function moveToNext() {
     const quesListConst = quesList;
-    let isAnswered = false;
-    if (
-      quesList[currentQues].choices.filter((choice) => choice.selected)
-        .length !== 0
-    ) {
-      isAnswered = true;
-    }
+
     quesListConst[currentQues].state = {
       ...quesListConst[currentQues].state,
-      answered: isAnswered,
       seen: true,
     };
     setQuesList(quesListConst);
 
     if (currentQues >= quesCount) return;
     setCurrentQues(currentQues + 1);
+  }
+
+  function navigateToQues(quesNo) {
+    const quesListConst = quesList;
+    quesListConst[currentQues].state = {
+      ...quesListConst[currentQues].state,
+      seen: true,
+    };
+    quesListConst[quesNo].state = {
+      ...quesListConst[quesNo].state,
+      seen: true,
+    };
+    setCurrentQues(quesNo);
+  }
+
+  function getQuesState(ques, quesNo) {
+    if (currentQues === quesNo) return "current";
+    else if (ques.state.answered) return "answered";
+    else if (ques.state.seen) return "seen";
+    else return "unseen";
   }
 
   useEffect(() => {
@@ -159,28 +208,54 @@ const TakeTest = ({ location, history }) => {
   return !isSubmitted ? (
     <>
       <div id="test-container">
-        <CustomTimer onTimeFinish={onTimeFinish} />
-        {quesList.length > 0 && (
-          <Question
-            key={currentQues}
-            ques={{ ...quesList[currentQues] }}
-            onCheckAnswer={onCheckAnswer}
-            quesIndex={currentQues}
-          />
+        <div id="timer-area">
+          <CustomTimer onTimeFinish={onTimeFinish} />
+        </div>
+        <div id="question-area">
+          <button
+            onClick={moveToPrev}
+            disabled={currentQues === 0}
+            className="navigate-ques prev"
+          >
+            <i className="fas fa-chevron-left"></i>
+          </button>
+          {quesList.length > 0 && (
+            <Question
+              key={currentQues}
+              ques={{ ...quesList[currentQues] }}
+              onCheckAnswer={onCheckAnswer}
+              quesIndex={currentQues}
+            />
+          )}
+          <button
+            onClick={moveToNext}
+            disabled={currentQues >= quesCount - 1}
+            className="navigate-ques next"
+          >
+            <i className="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div className="attempt-summary">
+          {quesList.map((ques, quesNo) => (
+            <button
+              className={`navigate-ques-${getQuesState(ques, quesNo)}`}
+              onClick={() => navigateToQues(quesNo)}
+              key={quesNo}
+            >
+              {quesNo + 1}
+            </button>
+          ))}
+        </div>
+        {currentQues >= quesCount - 1 && (
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="submit-test-btn"
+          >
+            Submit Test
+          </button>
         )}
       </div>
-
-      <button onClick={moveToPrev} disabled={currentQues === 0}>
-        Prev
-      </button>
-      <button onClick={moveToNext} disabled={currentQues >= quesCount - 1}>
-        Next
-      </button>
-      {currentQues >= quesCount - 1 && (
-        <button type="button" onClick={submitTest}>
-          Submit Test
-        </button>
-      )}
     </>
   ) : (
     <>
