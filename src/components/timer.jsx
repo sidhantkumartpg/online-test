@@ -23,7 +23,7 @@ class CustomTimer extends Component {
       <div>
         <Timer
           active
-          duration={10 * 60 * 1000}
+          duration={10 * 60 * 100}
           onTimeUpdate={this.onTimerUpdate}
           onFinish={this.onFinish}
         />

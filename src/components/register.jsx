@@ -3,7 +3,10 @@ import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const Register = () => {
-  const [registerDetails, setregisterDetails] = useState({});
+  const [registerDetails, setregisterDetails] = useState({
+    "emp-code": "",
+    name: "",
+  });
 
   const [detailsValidate, setDetailsValidate] = useState({});
 

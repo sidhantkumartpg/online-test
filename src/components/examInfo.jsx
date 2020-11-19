@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { collapseToast, toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "../styling/common.css";
 import "react-toastify/dist/ReactToastify.css";
 import { getUserInfo } from "../utils/sessionManag";
+import { quesConst } from "../constants";
 
 const ExamInfo = (props) => {
   const [arrangeDetails, setArrangeDetails] = useState({
@@ -11,14 +12,6 @@ const ExamInfo = (props) => {
   });
 
   const history = useHistory();
-
-  const ques = {
-    title: "Question 1",
-    choices: ["one", "two", "three"],
-    multiple: false,
-    level: [1],
-    answer: [0],
-  };
 
   function validateDetails() {
     let isValid = true;
@@ -94,7 +87,7 @@ const ExamInfo = (props) => {
               id="level1"
               name="skill-level"
               type="radio"
-              value="1"
+              value={quesConst.beginner}
               onChange={handleChange}
             />
             Beginner
@@ -105,7 +98,7 @@ const ExamInfo = (props) => {
               id="level2"
               name="skill-level"
               type="radio"
-              value="2"
+              value={quesConst.intermediate}
               onChange={handleChange}
             />
             Intermediate
@@ -116,7 +109,7 @@ const ExamInfo = (props) => {
               id="level3"
               name="skill-level"
               type="radio"
-              value="3"
+              value={quesConst.advance}
               onChange={handleChange}
             />
             Advance

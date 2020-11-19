@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import Login from "./components/login";
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,10 +10,8 @@ import ExamInfo from "./components/examInfo";
 import NotFound from "./components/notFound";
 import TakeTest from "./components/takeTest";
 import Register from "./components/register";
-import Testing from "./components/testing";
-import Header from "./components/header";
 import TestReport from "./components/testReport";
-import { isRegistered } from "./utils/sessionManag";
+import { hasGivenTest, isRegistered } from "./utils/sessionManag";
 
 function App() {
   return (
@@ -44,7 +41,20 @@ function App() {
         />
         <Route path="/take-test" component={TakeTest} />
 
-        <Route path="/test-report" component={TestReport} />
+        <Route
+          path="/test-report"
+          render={(props) => {
+            if (!isRegistered()) {
+              return <Redirect to="/exam-info" />;
+            } else {
+              return hasGivenTest() ? (
+                <TestReport {...props} />
+              ) : (
+                <Redirect to="/exam-info" />
+              );
+            }
+          }}
+        />
 
         <Redirect exact from="/" to="/exam-info" />
         <Route path="/not-found" component={NotFound} />

@@ -6,13 +6,16 @@ export function getUserInfo() {
 }
 
 export function getTestState() {
-  const session = localStorage.getItem(sessionKey);
+  const session = JSON.parse(localStorage.getItem(sessionKey));
   return session ? session["testState"] : null;
 }
 
-export function setTestState(testState) {
+export function saveTestState(testState, skillLevel, isSubmitted) {
   const session = JSON.parse(localStorage.getItem(sessionKey));
-  const newSession = { ...session, testState: { attempts: testState } };
+  const newSession = {
+    ...session,
+    testState: { attempts: testState, skillLevel, isSubmitted },
+  };
   localStorage.setItem(sessionKey, JSON.stringify(newSession));
 }
 
@@ -34,4 +37,12 @@ export function isRegistered() {
   } else {
     return false;
   }
+}
+
+export function hasGivenTest() {
+  const testState = getTestState();
+  return testState ? testState["isSubmitted"] : false;
+  // if (isRegistered()) {
+  //   return JSON.parse(localStorage.getItem(sessionKey))["isSubmitted"];
+  // }
 }

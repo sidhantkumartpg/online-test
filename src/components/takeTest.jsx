@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getAllQuestions } from "../utils/questionsUtil.js";
-import { getUserInfo, setTestState } from "../utils/sessionManag.js";
-import { writeTestResponse } from "../utils/testRespUtil.js";
+import { hasGivenTest, saveTestState } from "../utils/sessionManag.js";
 import Question from "./question.jsx";
 import CustomTimer from "./timer.jsx";
 
-const TakeTest = (props) => {
+const TakeTest = ({ location, history }) => {
   const [quesList, setQuesList] = useState([]);
   const [currentQues, setCurrentQues] = useState(0);
-
-  const totalQuestion = quesList.length;
-
-  if (!props.location.state) {
-    props.history.replace("/exam-info");
-  }
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [timesUp, setTimesUp] = useState(false);
 
   const quesCount = quesList.length;
 
+  if (!location.state) {
+    history.replace("/exam-info");
+  } else if (location.state && hasGivenTest()) {
+    history.replace("/test-report");
+  }
+
   function mapToQuesModel(ques) {
-    const { title, choices, multipleAns } = ques;
+    const { title, choices, multipleAns, answer } = ques;
 
     const mapChoices = choices.map((choice) => {
       return { value: choice, selected: false };
@@ -29,22 +31,20 @@ const TakeTest = (props) => {
       choices: mapChoices,
       multipleAns,
       state: { answered: false, seen: false },
+      answer,
     };
   }
 
   function submitTest() {
-    // stop the timer
     // prompt for confirmation
     // save responses to json
-    // navigate to test report screen
-    // calculate score
-    setTestState(quesList);
-    props.history.replace("/test-report");
+    setIsSubmitted(true);
+    saveTestState(quesList, location.state.skillLevel, true);
   }
 
   function onTimeFinish() {
-    // save responses to json
-    // navigate to test report screen
+    setTimesUp(true);
+    submitTest();
   }
 
   const onCheckAnswer = (quesIndex, choiceIndex, e) => {
@@ -88,19 +88,6 @@ const TakeTest = (props) => {
     }
   };
 
-  function renderQuestion() {
-    if (!quesList.length) return;
-    else
-      return (
-        <Question
-          key={currentQues}
-          ques={{ ...quesList[currentQues] }}
-          onCheckAnswer={onCheckAnswer}
-          quesIndex={currentQues}
-        />
-      );
-  }
-
   function moveToPrev() {
     const quesListConst = quesList;
     let isAnswered = false;
@@ -142,7 +129,7 @@ const TakeTest = (props) => {
   }
 
   useEffect(() => {
-    const { state } = props.location;
+    const { state } = location;
     let questions = getAllQuestions(!state ? 1 : state.skillLevel);
 
     const quesConst = [];
@@ -155,25 +142,32 @@ const TakeTest = (props) => {
     });
 
     setQuesList(quesConst);
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     const interval = setInterval(function () {
       console.log(quesList);
-      setTestState(quesList);
+      saveTestState(quesList, location.state.skillLevel, false);
     }, 5000);
 
     return () => {
       clearInterval(interval);
       console.log("component-unmounted");
     };
-  }, [quesList]);
+  }, [quesList, location]);
 
-  return (
+  return !isSubmitted ? (
     <>
       <div id="test-container">
-        <CustomTimer />
-        {renderQuestion()}
+        <CustomTimer onTimeFinish={onTimeFinish} />
+        {quesList.length > 0 && (
+          <Question
+            key={currentQues}
+            ques={{ ...quesList[currentQues] }}
+            onCheckAnswer={onCheckAnswer}
+            quesIndex={currentQues}
+          />
+        )}
       </div>
 
       <button onClick={moveToPrev} disabled={currentQues === 0}>
@@ -184,9 +178,19 @@ const TakeTest = (props) => {
       </button>
       {currentQues >= quesCount - 1 && (
         <button type="button" onClick={submitTest}>
-          Submit
+          Submit Test
         </button>
       )}
+    </>
+  ) : (
+    <>
+      <div id="test-container">
+        <div id="question-wrapper">
+          {timesUp ? <h2>Times up!</h2> : <h2>Good job!</h2>}
+          <p id="submit-subtitle"> Your test is submitted successfully</p>
+          <Link to="/test-report">Test analysis</Link>
+        </div>
+      </div>
     </>
   );
 };
