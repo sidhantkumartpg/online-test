@@ -2,24 +2,21 @@ import React, { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import { Link } from "react-router-dom";
 import { getAllQuestions, getAttemptCount } from "../utils/questionsUtil.js";
-import { hasGivenTest, saveTestState } from "../utils/sessionManag.js";
+import { saveTestState } from "../utils/sessionManag.js";
 import Question from "./question.jsx";
 import CustomTimer from "./timer.jsx";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import PropTypes from "prop-types";
 
-const TakeTest = ({ location, history }) => {
+const TakeTest = (props) => {
   const [quesList, setQuesList] = useState([]);
   const [currentQues, setCurrentQues] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [timesUp, setTimesUp] = useState(false);
 
-  const quesCount = quesList.length;
+  const { location } = props;
 
-  if (!location.state) {
-    history.replace("/exam-info");
-  } else if (location.state && hasGivenTest()) {
-    history.replace("/test-report");
-  }
+  const quesCount = quesList.length;
 
   function mapToQuesModel(ques) {
     const { title, choices, multipleAns, answer } = ques;
@@ -38,14 +35,11 @@ const TakeTest = ({ location, history }) => {
   }
 
   function submitTest() {
-    setIsSubmitted(true);
     saveTestState(quesList, location.state.skillLevel, true);
+    setIsSubmitted(true);
   }
 
   function handleSubmit() {
-    // prompt for confirmation
-    // save responses to json
-
     const attemptCount = getAttemptCount(quesList);
 
     if (attemptCount < quesCount)
@@ -183,27 +177,25 @@ const TakeTest = ({ location, history }) => {
 
     const quesConst = [];
 
-    questions.forEach((q, index) => {
+    questions.forEach((q) => {
       const mappedQues = mapToQuesModel(q);
-      // if (index === 0)
-      //   mappedQues.state.seen = true;
       quesConst.push(mappedQues);
     });
 
     setQuesList(quesConst);
   }, [location]);
 
-  useEffect(() => {
-    const interval = setInterval(function () {
-      console.log(quesList);
-      saveTestState(quesList, location.state.skillLevel, false);
-    }, 5000);
+  // useEffect(() => {
+  //   const interval = setInterval(function () {
+  //     console.log(quesList);
+  //     saveTestState(quesList, location.state.skillLevel, false);
+  //   }, 5000);
 
-    return () => {
-      clearInterval(interval);
-      console.log("component-unmounted");
-    };
-  }, [quesList, location]);
+  //   return () => {
+  //     clearInterval(interval);
+  //     console.log("component-unmounted");
+  //   };
+  // }, [quesList, location]);
 
   return !isSubmitted ? (
     <>
@@ -268,6 +260,14 @@ const TakeTest = ({ location, history }) => {
       </div>
     </>
   );
+};
+
+TakeTest.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      skillLevel: PropTypes.isRequired,
+    }),
+  }).isRequired,
 };
 
 export default TakeTest;

@@ -28,14 +28,24 @@ body {
 .login-submit-btn,
 .register-submit-btn {
   width: 100%;
-  padding: 0.4rem;
-  border-radius: 0.5rem;
-  border: solid #0cab11;
-  background-color: #0cab11;
-  font-weight: 600;
+  box-sizing: border-box;
+  border-radius: 0.4rem;
+  font-family: "Roboto Condensed";
   font-size: 1rem;
-  color: beige;
+  padding: 0.5rem 0.6rem;
+  background-color: #0cab11;
+  border: 1px solid #0cab11;
+  color: #fff;
   cursor: pointer;
+  display: block;
+  margin: 2rem auto;
+}
+
+.register-submit-btn:hover {
+  background-color: #fff;
+  color: #0cab11;
+  border: 1px solid #0cab11;
+  box-sizing: border-box;
 }
 
 #skill-inputs-wrapper label {
@@ -90,16 +100,23 @@ body {
   border-radius: 0.5rem;
   cursor: pointer;
   border: solid #0cab11;
-  color: beige;
+  color: #fff;
   margin-top: 1rem;
   font-size: 1rem;
+}
+
+#take-test-btn:hover {
+  background-color: #fff;
+  color: #0cab11;
+  border: 1px solid #0cab11;
+  box-sizing: border-box;
 }
 
 /* Header styling */
 
 header {
   width: 100%;
-  position: fixed;
+  position: sticky;
   height: 60px;
   box-shadow: 0px 5px 10px 0px #aaa;
 }
@@ -120,6 +137,11 @@ header ul li {
   margin-left: 1rem;
 }
 
+header i {
+  color: #0cab11;
+  margin-left: 0.5rem;
+}
+
 header a {
   text-decoration: none;
   font-size: 1.2rem;
@@ -128,6 +150,14 @@ header a {
 
 header a:hover {
   color: rgb(7, 7, 7);
+}
+
+.logout-btn {
+  font-family: "Roboto Condensed";
+  font-size: 1rem;
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 
 .container {
@@ -198,6 +228,20 @@ header a:hover {
   border: 1px solid #0cab11;
 }
 
+.test-report-container .summary {
+  width: fit-content;
+  margin: 1rem auto;
+}
+
+.test-report-container .summary .row {
+  display: flex;
+}
+
+.test-report-container .summary .label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
 /* --- Test report end --- */
 
 /* Take Test styling */
@@ -205,7 +249,14 @@ header a:hover {
 #test-container #question-area {
   display: flex;
   width: 40%;
-  margin: auto;
+  margin: 0 auto;
+}
+
+#test-container {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .navigate-ques {
@@ -259,12 +310,12 @@ header a:hover {
 
 .submit-test-btn {
   box-sizing: border-box;
-  border: none;
   border-radius: 0.4rem;
   font-family: "Roboto Condensed";
   font-size: 1rem;
   padding: 0.3rem 0.6rem;
   background-color: #0cab11;
+  border: 1px solid #0cab11;
   color: #fff;
   cursor: pointer;
   display: block;
@@ -274,7 +325,6 @@ header a:hover {
 .submit-test-btn:hover {
   background-color: #fff;
   color: #0cab11;
-  border: 1px solid #0cab11;
 }
 
 .attempt-summary {

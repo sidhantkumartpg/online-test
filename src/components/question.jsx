@@ -1,12 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Question = (props) => {
   const { title, multipleAns, choices } = props.ques;
 
   const { quesIndex } = props;
-
-  // Input props - quesIndex
-  // Output to handler - quesIndex, choiceIndex
 
   const renderChoices = (choices, isMultiple) => {
     if (isMultiple) {
@@ -67,6 +65,16 @@ const Question = (props) => {
       <ul>{renderChoices(choices, multipleAns)}</ul>
     </div>
   );
+};
+
+Question.propTypes = {
+  ques: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    multipleAns: PropTypes.bool.isRequired,
+    choices: PropTypes.array.isRequired,
+  }).isRequired,
+  onCheckAnswer: PropTypes.func.isRequired,
+  quesIndex: PropTypes.number.isRequired,
 };
 
 export default Question;

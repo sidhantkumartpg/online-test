@@ -1,3 +1,5 @@
+import { AnswerStatus } from "../constants";
+
 const json = require("./questionBank.json");
 
 export function getAllQuestions(level) {
@@ -8,10 +10,6 @@ export function getAllQuestions(level) {
   );
 
   return ques;
-}
-
-export function calculateTestReport(testAttempts) {
-  console.log();
 }
 
 function isQuestionAnswered(ques) {
@@ -51,15 +49,23 @@ export function getAnsweredChoices(answeredQues) {
     }
   });
 
-  let status = "Incorrect";
+  let status = AnswerStatus.INCORRECT;
 
   if (correctAnsCount === answers.length) {
-    status = "Correct";
-  } else if (correctAnsCount > 0 && correctAnsCount < answers.length)
-    status = "Partially correct";
-  else status = "Incorrect";
+    status = AnswerStatus.CORRRECT;
+  } else if (correctAnsCount > 0 && correctAnsCount < answers.length) {
+    status = AnswerStatus.PARTIALLY_CORRECT;
+  } else {
+    status = AnswerStatus.INCORRECT;
+  }
 
   let score = correctAnsCount / answers.length;
 
-  return { realAns, yourAns, isAnswered, status, score };
+  return {
+    realAns,
+    yourAns,
+    isAnswered,
+    status,
+    score,
+  };
 }

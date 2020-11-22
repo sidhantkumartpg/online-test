@@ -5,8 +5,9 @@ import "../styling/common.css";
 import "react-toastify/dist/ReactToastify.css";
 import { getUserInfo } from "../utils/sessionManag";
 import { quesConst } from "../constants";
+import Header from "./header";
 
-const ExamInfo = (props) => {
+const ExamInfo = () => {
   const [arrangeDetails, setArrangeDetails] = useState({
     terms: false,
   });
@@ -54,12 +55,13 @@ const ExamInfo = (props) => {
 
   return (
     <>
+      <Header />
       <div className="exam-info content">
         {/* replace with utility method */}
         <p className="text-center">
-          Hello <strong>{getUserInfo() ? getUserInfo().empCode : ""}</strong>
+          Hello <strong>{getUserInfo() ? getUserInfo().name : ""}</strong>
         </p>
-        <p>Let's have a look at examination information first</p>
+        <p>{`Let's have a look at examination information first`}</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
           minus eos similique nam ipsum magnam sapiente facere exercitationem,
@@ -87,7 +89,7 @@ const ExamInfo = (props) => {
               id="level1"
               name="skill-level"
               type="radio"
-              value={quesConst.beginner}
+              value={quesConst.BEGINNER}
               onChange={handleChange}
             />
             Beginner
@@ -98,7 +100,7 @@ const ExamInfo = (props) => {
               id="level2"
               name="skill-level"
               type="radio"
-              value={quesConst.intermediate}
+              value={quesConst.INTERMEDIATE}
               onChange={handleChange}
             />
             Intermediate
@@ -109,7 +111,7 @@ const ExamInfo = (props) => {
               id="level3"
               name="skill-level"
               type="radio"
-              value={quesConst.advance}
+              value={quesConst.ADVANCE}
               onChange={handleChange}
             />
             Advance

@@ -1,5 +1,11 @@
 export const quesConst = {
-  beginner: 1,
-  intermediate: 2,
-  advance: 3,
+  BEGINNER: 1,
+  INTERMEDIATE: 2,
+  ADVANCE: 3,
+};
+
+export const AnswerStatus = {
+  CORRRECT: 1,
+  PARTIALLY_CORRECT: 2,
+  INCORRECT: 3,
 };

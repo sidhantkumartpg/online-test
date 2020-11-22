@@ -19,7 +19,7 @@ function App() {
       <Switch>
         <Route
           path="/exam-info"
-          render={(props) => {
+          render={() => {
             if (isRegistered()) return <ExamInfo />;
             else return <Redirect to="/register" />;
           }}
@@ -39,7 +39,18 @@ function App() {
             else return <Register {...props} />;
           }}
         />
-        <Route path="/take-test" component={TakeTest} />
+        <Route
+          path="/take-test"
+          render={(props) => {
+            if (!props.location.state) {
+              return <Redirect to="/exam-info" />;
+            } else if (props.location.state && hasGivenTest()) {
+              return <Redirect to="/test-report" />;
+            } else {
+              return <TakeTest {...props} />;
+            }
+          }}
+        />
 
         <Route
           path="/test-report"

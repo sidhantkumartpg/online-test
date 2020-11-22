@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { cleanSession } from "../utils/sessionManag";
+import Header from "./header";
 
 const Register = () => {
   const [registerDetails, setregisterDetails] = useState({
@@ -16,7 +18,8 @@ const Register = () => {
     setregisterDetails({ ...registerDetails, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e) {
+  function handleSubmit() {
+    cleanSession();
     setDetailsValidate({});
 
     const detailsCount = Object.keys(registerDetails).length;
@@ -54,6 +57,7 @@ const Register = () => {
 
   return (
     <>
+      <Header />
       <div className="section">
         <form className="register-form">
           <h2>Register</h2>
