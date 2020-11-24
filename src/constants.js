@@ -9,3 +9,6 @@ export const AnswerStatus = {
   PARTIALLY_CORRECT: 2,
   INCORRECT: 3,
 };
+
+// Dont assign it a zero value
+export const EXAM_TIME_IN_MIN = 10;

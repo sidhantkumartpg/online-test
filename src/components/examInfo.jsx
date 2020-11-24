@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "../styling/common.css";
 import "react-toastify/dist/ReactToastify.css";
 import { getUserInfo } from "../utils/sessionManag";
-import { quesConst } from "../constants";
+import { EXAM_TIME_IN_MIN, quesConst } from "../constants";
 import Header from "./header";
 
 const ExamInfo = () => {
@@ -53,20 +53,68 @@ const ExamInfo = () => {
     setArrangeDetails({ ...arrangeDetails, [e.target.name]: value });
   }
 
+  function getConfigTime() {
+    if (!EXAM_TIME_IN_MIN) {
+      return 1;
+    }
+    return EXAM_TIME_IN_MIN;
+  }
+
   return (
     <>
       <Header />
       <div className="exam-info content">
         {/* replace with utility method */}
         <p className="text-center">
-          Hello <strong>{getUserInfo() ? getUserInfo().name : ""}</strong>
+          Hello{" "}
+          <span className="username">
+            <strong>{getUserInfo() ? getUserInfo().name : ""}</strong>
+          </span>
         </p>
         <p>{`Let's have a look at examination information first`}</p>
+        <ol>
+          <li>This exam contains multiple choice questions</li>
+          <li>
+            Some questions may have <strong>multiple answers</strong> (from the
+            choices given)
+          </li>
+          <li>
+            Each question has <strong>score = 1</strong> for correct and{" "}
+            <strong>0</strong> for incorrect
+          </li>
+          <li>There is no negative marking</li>
+          <li>Questions will be according to the skill level choosen by you</li>
+          <li>
+            This exam will contain all the questions according to your choosen
+            skill level
+          </li>
+          <li>
+            Total time for the exam is{" "}
+            <strong>{getConfigTime()} minutes</strong>
+          </li>
+        </ol>
+        <br />
+        <p>{"Attempting test instructions: "}</p>
+        <ul className="exam-instructions">
+          <li>
+            You will get questions status summary at bottom of test screen
+          </li>
+          <li>
+            Attempted: <span className="green-color box"></span> Not seen:{" "}
+            <span className="grey-color box"></span> Seen but not attempted:{" "}
+            <span className="yellow-color box"></span>
+          </li>
+          <li>
+            You can submit the test anytime, if you have not attempted any of
+            the question and attempt to submit, it will give you warning once
+          </li>
+        </ul>
+        <br />
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores
-          minus eos similique nam ipsum magnam sapiente facere exercitationem,
-          nemo distinctio nobis adipisci recusandae tenetur incidunt fugiat quam
-          nesciunt quod omnis?
+          <strong>Note: </strong>Once the exam is started you{" "}
+          <strong>
+            should not close the tab or refresh the page, or it will start again
+          </strong>
         </p>
         <div className="form-group">
           <input
@@ -124,6 +172,8 @@ const ExamInfo = () => {
           </button>
         </div>
       </div>
+      <br />
+      <br />
       <ToastContainer />
     </>
   );

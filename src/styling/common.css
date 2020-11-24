@@ -94,12 +94,14 @@ body {
   margin-top: 0;
 }
 
+/* Exam-info styling */
+
 #take-test-btn {
   background-color: #0cab11;
   padding: 0.4rem 0.8rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  border: solid #0cab11;
+  border: 1px solid #0cab11;
   color: #fff;
   margin-top: 1rem;
   font-size: 1rem;
@@ -112,6 +114,36 @@ body {
   box-sizing: border-box;
 }
 
+.box {
+  height: 1.5rem;
+  width: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.green-color.box {
+  background-color: #0cab11;
+}
+
+.grey-color.box {
+  background-color: rgb(189, 187, 187);
+}
+
+.yellow-color.box {
+  background-color: #e3e31e;
+}
+
+.exam-info.content li {
+  margin: 0.8rem 0;
+}
+
+.exam-info.content ul {
+  list-style: none;
+}
+
+.username {
+  text-transform: capitalize;
+}
 /* Header styling */
 
 header {
