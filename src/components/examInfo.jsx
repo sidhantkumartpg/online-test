@@ -100,9 +100,21 @@ const ExamInfo = () => {
             You will get questions status summary at bottom of test screen
           </li>
           <li>
-            Attempted: <span className="green-color box"></span> Not seen:{" "}
-            <span className="grey-color box"></span> Seen but not attempted:{" "}
-            <span className="yellow-color box"></span>
+            <ul>
+              <li>
+                Attempted: <span className="green-color box"></span>
+              </li>
+              <li>
+                Not seen: <span className="grey-color box"></span>
+              </li>
+              <li>
+                Seen but not attempted:{" "}
+                <span className="yellow-color box"></span>
+              </li>
+              <li>
+                Current question: <span className="blue-color box"></span>
+              </li>
+            </ul>
           </li>
           <li>
             You can submit the test anytime, if you have not attempted any of

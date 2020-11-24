@@ -141,6 +141,10 @@ body {
   background-color: #e3e31e;
 }
 
+.blue-color.box {
+  background-color: #2762b0;
+}
+
 .exam-info.content li {
   margin: 0.8rem 0;
 }
