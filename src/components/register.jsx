@@ -58,7 +58,7 @@ const Register = () => {
   return (
     <>
       <Header />
-      <div className="section">
+      <div className="section register-section">
         <form className="register-form">
           <h2>Register</h2>
           <div className="form-group">
