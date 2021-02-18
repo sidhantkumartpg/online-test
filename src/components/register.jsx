@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { cleanSession } from "../utils/sessionManag";
-import Header from "./header";
+import { cleanSession, isRegistered } from "../utils/sessionManag";
+import MemoizedHeader from "./header";
 
 const Register = () => {
   const [registerDetails, setregisterDetails] = useState({
@@ -57,7 +57,7 @@ const Register = () => {
 
   return (
     <>
-      <Header />
+      <MemoizedHeader isRegistered={isRegistered()} />
       <div className="section register-section">
         <form className="register-form">
           <h2>Register</h2>

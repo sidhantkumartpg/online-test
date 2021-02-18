@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AnswerStatus, quesConst } from "../constants";
 import { getAnsweredChoices, getAttemptCount } from "../utils/questionsUtil";
-import { cleanSession, getTestState } from "../utils/sessionManag";
-import Header from "./header";
+import {
+  cleanSession,
+  getTestState,
+  isRegistered,
+} from "../utils/sessionManag";
+import MemoizedHeader from "./header";
 
 const TestReport = () => {
   const [hrefFile, setHrefFile] = useState("");
@@ -80,7 +84,7 @@ const TestReport = () => {
 
   return (
     <>
-      <Header />
+      <MemoizedHeader isRegistered={isRegistered()} />
       <div className="test-report-bg">
         <div className="test-report-container">
           <h2>Test result</h2>

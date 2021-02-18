@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "../styling/common.css";
 import "react-toastify/dist/ReactToastify.css";
-import { getUserInfo } from "../utils/sessionManag";
+import { getUserInfo, isRegistered } from "../utils/sessionManag";
 import { EXAM_TIME_IN_MIN, quesConst } from "../constants";
-import Header from "./header";
+import MemoizedHeader from "./header";
 
 const ExamInfo = () => {
   const [arrangeDetails, setArrangeDetails] = useState({
@@ -62,7 +62,7 @@ const ExamInfo = () => {
 
   return (
     <>
-      <Header />
+      <MemoizedHeader isRegistered={isRegistered()} />
       <div className="exam-info content">
         {/* replace with utility method */}
         <p className="text-center">

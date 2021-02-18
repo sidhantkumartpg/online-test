@@ -11,4 +11,4 @@ export const AnswerStatus = {
 };
 
 // Dont assign it a zero value
-export const EXAM_TIME_IN_MIN = 10;
+export const EXAM_TIME_IN_MIN = 1;

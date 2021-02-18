@@ -1,9 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { cleanSession, isRegistered } from "../utils/sessionManag";
+import { cleanSession } from "../utils/sessionManag";
+import PropTypes from "prop-types";
+import { memo } from "react";
 
-const Header = () => {
+const Header = ({ isRegistered }) => {
   const history = useHistory();
+
+  console.log("Header Rendered");
 
   function handleLogout() {
     cleanSession();
@@ -15,7 +19,7 @@ const Header = () => {
         <h3>
           Online test <i className="fas fa-clipboard-list"></i>{" "}
         </h3>
-        {isRegistered() && (
+        {isRegistered && (
           <button className="logout-btn" onClick={handleLogout}>
             Logout
             <i className="fas fa-sign-out-alt"></i>
@@ -26,4 +30,10 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  isRegistered: PropTypes.bool.isRequired,
+};
+
+const MemoizedHeader = memo(Header);
+
+export default MemoizedHeader;

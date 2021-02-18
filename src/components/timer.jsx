@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Timer from "react-timer-wrapper";
 import Timecode from "react-timecode";
 import { EXAM_TIME_IN_MIN } from "../constants";
+import PropTypes from "prop-types";
 
-const CustomTimer = () => {
+const CustomTimer = (props) => {
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -13,7 +14,7 @@ const CustomTimer = () => {
   };
 
   const onFinish = () => {
-    this.props.onTimeFinish();
+    props.onTimeFinish();
   };
 
   /**
@@ -39,37 +40,8 @@ const CustomTimer = () => {
   );
 };
 
+CustomTimer.propTypes = {
+  onTimeFinish: PropTypes.func.isRequired,
+};
+
 export default CustomTimer;
-
-// class CustomTimer extends Component {
-//   state = {};
-
-//   onTimerUpdate = ({ time, duration }) => {
-//     this.setState({
-//       time,
-//       duration,
-//     });
-//   };
-
-//   onFinish = () => {
-//     this.props.onTimeFinish();
-//   };
-
-//   render() {
-//     const { time, duration } = this.state;
-
-//     return (
-//       <div>
-//         <Timer
-//           active
-//           duration={10 * 60 * 1000}
-//           onTimeUpdate={this.onTimerUpdate}
-//           onFinish={this.onFinish}
-//         />
-//         <Timecode time={duration - time} />
-//       </div>
-//     );
-//   }
-// }
-
-// export default CustomTimer;
